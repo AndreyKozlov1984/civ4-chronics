@@ -1,0 +1,9 @@
+The main purpose of the project is to create a web page with ability to play civ4 game
+  -You have some predefined state
+  -You have some goals to achieve
+  -The map is small, diplomacy / building / city management / research / religion set to minimum
+  -Battles are most interested part. 
+  -Almost no AI. Everything should be scripted
+  -Scenarious should be made by comunity
+  -Graphics set to minimum. Initially the map with 20 x 8 cells is what we need and nothing more! Border of the map should be 
+unaccessible for player units, but computer units may appear there
