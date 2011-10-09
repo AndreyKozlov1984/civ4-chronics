@@ -13,5 +13,9 @@ html,body {
   height: 100%;
   background: black;
   position: relative;
+  overflow: auto;
 }
 
+.hex {
+  position:absolute;
+}
