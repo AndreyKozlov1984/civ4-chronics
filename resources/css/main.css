@@ -44,12 +44,13 @@ html,body {
   transform: rotate(-60deg);
   background-repeat: none;
   background-position: 50% 50%;
-  z-index: 1;
 }
 .tile-hills {
   background-image: url("http://perludus.com/examples/hexmap/hills-variation3.png");
 }
 .tile-empty {
   background-color: black;
-  z-index: 2;
+}
+.tile-water {
+  background-color: blue;
 }
