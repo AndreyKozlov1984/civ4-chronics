@@ -14,8 +14,8 @@ $.extend(Civ.GameManager.prototype, {
         if ($.isPlainObject(x)) {
             return this.getNearestCells(x.x, x.y);
         }
-        var y1 = x % 2 ? y + 1 : y ;
-        var y2 = x % 2 ? y  : y - 1;
+        var y1 = x % 2 ? y + 1 : y;
+        var y2 = x % 2 ? y : y - 1;
         var array = [{
             x: x,
             y: y - 1
@@ -50,18 +50,18 @@ $.extend(Civ.GameManager.prototype, {
         $.each(this.cells, function(key, cell) {
             cell.selected = false;
         });
-				this.selectedCell = null;
+        this.selectedCell = null;
     },
     clearHighlight: function() {
         $.each(this.cells, function(key, cell) {
             cell.highlightAction = false;
         });
-				this.highlightedCells = null;
+        this.highlightedCells = null;
     },
-		selectCell: function(cell){
-			  this.selectedCell = cell;
-				cell.selected = true;
-		},
+    selectCell: function(cell) {
+        this.selectedCell = cell;
+        cell.selected = true;
+    },
     loadMap: function(mapData) {
         var me = this;
         $.extend(this, {
@@ -84,13 +84,15 @@ $.extend(Civ.GameManager.prototype, {
         });
     },
     processCellClick: function(tileInfo) {
-			window.console.info({processingCell: tileInfo});
+        window.console && window.console.info({
+            processingCell: tileInfo
+        });
         var me = this;
         var selectedCell = me.cells[me.k(tileInfo)];
         if (!me.selectedCell) {
             me.clearSelection();
             me.clearHighlight();
-						me.selectCell(selectedCell);
+            me.selectCell(selectedCell);
             var unit = me.selectedCell.unit;
             if (unit) {
                 if (unit.side === me.playerSide) {
@@ -113,17 +115,17 @@ $.extend(Civ.GameManager.prototype, {
         }
         else {
             if (selectedCell.highlightAction) {
-                window.console.info({
+                window.console && window.console.info({
                     aboutTo: selectedCell.highlightAction
                 });
                 //do something
-								this.unitMakeAction({
-									  from: me.selectedCell,
-										to: selectedCell,
-										unit: me.selectedCell.unit,
-										action: selectedCell.highlightAction
-								});
-								//just select a new unit
+                this.unitMakeAction({
+                    from: me.selectedCell,
+                    to: selectedCell,
+                    unit: me.selectedCell.unit,
+                    action: selectedCell.highlightAction
+                });
+                //just select a new unit
                 me.clearSelection();
                 me.clearHighlight();
                 me.processCellClick(selectedCell);
@@ -158,21 +160,21 @@ $.extend(Civ.GameManager.prototype, {
             return 'move'; //can always move
         }
     },
-		unitMakeAction: function(config){
-			var cellUnit = config.to.unit;
-			if (config.action === 'move'){
-				config.to.unit = config.from.unit;
-				config.from.unit = null;
-				this.selectedCell = null;
-			}
-			if (config.action === 'attack'){
-				config.to.unit = config.from.unit;
-				config.from.unit = null;
-				this.selectedCell = null;
-			}
-		},
+    unitMakeAction: function(config) {
+        var cellUnit = config.to.unit;
+        if (config.action === 'move') {
+            config.to.unit = config.from.unit;
+            config.from.unit = null;
+            this.selectedCell = null;
+        }
+        if (config.action === 'attack') {
+            config.to.unit = config.from.unit;
+            config.from.unit = null;
+            this.selectedCell = null;
+        }
+    },
     render: function() {
-			window.console.info('manager:rendering the map');
+        window.console && window.console.info('manager:rendering the map');
         var x, y;
         var result = {
             cols: this.width,
@@ -185,6 +187,6 @@ $.extend(Civ.GameManager.prototype, {
                 result.map[y][x] = this.cells[this.k(x, y)];
             }
         }
-				return result;
+        return result;
     }
 });

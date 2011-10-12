@@ -35,7 +35,7 @@ $.extend(Civ.Map.prototype, {
         return groupEl;
     },
     setItems: function(config) {
-        window.console.info(config);
+        window.console && window.console.info(config);
         var me = this;
         var s = config.size;
         this.itemsConfig = config;
