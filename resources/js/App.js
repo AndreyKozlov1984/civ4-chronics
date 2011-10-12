@@ -1,25 +1,21 @@
 $(function() {
-  var mapPlaceholder = $('<div></div>');
-  $('body').append(mapPlaceholder);
-  var map = new Civ.Map(mapPlaceholder);
-  map.onTileClick = function(tileInfo) {
-    window.console && window.console.info(tileInfo);
-  };
-  //lets create a small map
-  map.setItems({
-    size: 72,
-    rows: 2,
-    cols: 3
-  });
-  setInterval(function() {
+    var mapPlaceholder = $('<div></div>');
+    $('body').append(mapPlaceholder);
+    var map = new Civ.Map(mapPlaceholder);
+		var gameManager = new Civ.GameManager();
+    var loadMap = function(mapData) {
+        map.setItems($.extend(mapData,{
+            size: 72
+        }));
+    };
     $.post('map.json', {}, function(result) {
-      map.setItems({
-        size: 72,
-        rows: result.tiles.length,
-        cols: result.tiles[0].length
-      });
-      map.loadTiles(result.tiles);
-    },'json');
-  }, 1000);
-  //autoupdate tiles
+        gameManager.loadMap(result.tiles);
+        var mapData = gameManager.render();
+        loadMap(mapData);
+    }, 'json');
+    map.onTileClick = function(tileInfo) {
+        gameManager.processCellClick(tileInfo);
+        var mapData = gameManager.render();
+        loadMap(mapData);
+    };
 });

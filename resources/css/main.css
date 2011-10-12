@@ -54,3 +54,7 @@ html,body {
 .tile-water {
   background-color: blue;
 }
+circle {
+  stroke:blue;
+  cursor: pointer;
+}
