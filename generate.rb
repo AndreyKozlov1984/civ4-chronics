@@ -17,6 +17,6 @@ data = {
         end
     end
 }
-File.open('map.json','w') do |f|
+File.open('map.json.js','w') do |f|
     f.puts(data.to_json)
 end
