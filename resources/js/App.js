@@ -8,7 +8,7 @@ $(function() {
             size: 72
         }));
     };
-    $.post('map.json.js', {cacheBuster:Math.random()}, function(result) {
+    $.getJSON('map.json.js', {cacheBuster:Math.random()}, function(result) {
         gameManager.loadMap(result.tiles);
         var mapData = gameManager.render();
         loadMap(mapData);
