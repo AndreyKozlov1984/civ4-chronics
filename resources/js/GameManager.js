@@ -1,6 +1,7 @@
 window.Civ = window.Civ || {};
 Civ.GameManager = function(config) {
     $.extend(this, config);
+    this.battleManager = this.battleManager || new Civ.BattleManager({});
 };
 $.extend(Civ.GameManager.prototype, {
     k: function(x, y) {
@@ -168,9 +169,21 @@ $.extend(Civ.GameManager.prototype, {
             this.selectedCell = null;
         }
         if (config.action === 'attack') {
-            config.to.unit = config.from.unit;
-            config.from.unit = null;
-            this.selectedCell = null;
+            this.battleManager.simulateAttack({
+                from: config.from,
+                to: config.to,
+                onComplete: function(battleResult) {
+                    if (battleResult === 'attacker') {
+                        config.to.unit = config.from.unit;
+                        config.from.unit = null;
+                        this.selectedCell = null;
+                    } else {
+                        config.from.unit = null;
+                        this.selectedCell = null;
+                    }
+                },
+                scope: this
+            });
         }
     },
     render: function() {
