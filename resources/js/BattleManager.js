@@ -22,5 +22,14 @@ $.extend(Civ.BattleManager.prototype,{
     },
     getBattleResult: function(power1, power2){
         return Math.random() * (power1 + power2) < power1 ?  'attacker' : 'defender';
+    },
+    addTerrainTypeModifier: function(){
+        /*
+        if (tile.type.defend_bonus && unit.isDefender && unit.receivesDefenderBonus){
+            bonus = tile_defence_bonus;
+            text = "Terrain Defence";
+
+        }
+        */
     }
 });

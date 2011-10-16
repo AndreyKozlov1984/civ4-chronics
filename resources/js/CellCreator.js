@@ -4,7 +4,7 @@ Civ.CellCreator = function(config) {
 };
 $.extend(Civ.CellCreator.prototype, {
     makeCellContent: function(cellInfo) {
-        var layers = ['Tile', 'UnitSideIdentifier', 'Unit', 'CellSelection', 'Highlight'];
+        var layers = ['Tile','Improvement', 'UnitSideIdentifier', 'Unit', 'CellSelection', 'Highlight'];
         return layers.map(function(layer) {
             return this['create' + layer](cellInfo);
         }, this).filter(function(svgElement) {
@@ -13,10 +13,13 @@ $.extend(Civ.CellCreator.prototype, {
     },
     getTileImage: function(tileType) {
         var prefix = "resources/images/wesnoth/terrain/";
-        return prefix + {
-            'hills': "hills-variation.png",
-            'water': "water/ocean.png"
-        }[tileType];
+        var image = Civ.TileDatabase[tileType].image + '.png';
+        return prefix + image;
+    },
+    getImprovementImage: function(improvementType) {
+        var prefix = "resources/images/wesnoth/terrain/";
+        var image = Civ.ImprovementDatabase[improvementType].image + '.png';
+        return prefix + image;
     },
     getUnitImage: function(unitType) {
         var prefix = "resources/images/wesnoth/units/human-loyalists/";
@@ -41,6 +44,12 @@ $.extend(Civ.CellCreator.prototype, {
     createTile: function(cellInfo) {
         return this.svg.image(0, 0, this.size, this.size, this.getTileImage(cellInfo.tile));
     },
+    createImprovement: function(cellInfo){
+        if (!cellInfo.improvement){
+            return null;
+        }
+        return this.svg.image(0, 0, this.size, this.size, this.getImprovementImage(cellInfo.improvement));
+    },
     createUnitSideIdentifier: function(cellInfo) {
         if (!cellInfo.unit) {
             return null;
@@ -51,8 +60,6 @@ $.extend(Civ.CellCreator.prototype, {
                 strokeWidth: 3,
                 fill: 'none'
             });
-            //it was planned to do an animation here but it doesnt work at all
-            //$('<animate attributeName="stroke-width" to="5" dur="2s" repeatCount="indefinite"/>').appendTo(ellipse);
             return ellipse;
         } else {
             return this.svg.ellipse(this.size / 2, 3 / 4 * this.size, this.size / 4, this.size / 6, {

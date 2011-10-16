@@ -77,6 +77,7 @@ $.extend(Civ.GameManager.prototype, {
             $.each(row, function(x, cell) {
                 me.cells[me.k(x, y)] = {
                     tile: cell.tile,
+                    improvement: cell.improvement,
                     unit: cell.unit,
                     x: x,
                     y: y
