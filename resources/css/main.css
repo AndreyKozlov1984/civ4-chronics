@@ -7,6 +7,28 @@ html,body {
   margin: 0;
   padding: 0;
 }
+.no-select * {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.right-region {
+  position: absolute;
+  width: 300px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.center-region {
+  position: absolute;
+  left: 0;
+  right: 300px;
+  top: 0;
+  bottom: 0;
+
+}
 .map-container {
   border: 10px blue solid;
   width: 100%;

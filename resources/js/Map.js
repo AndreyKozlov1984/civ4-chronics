@@ -9,6 +9,7 @@ $.extend(Civ.Map.prototype, {
     createMarkup: function() {
         var me = this;
         this.el.addClass('map-container');
+        this.el.addClass('no-select');
         this.el.click(function(event) {});
     },
     createTile: function(svg, tile) {
@@ -40,7 +41,7 @@ $.extend(Civ.Map.prototype, {
         var s = config.size;
         this.itemsConfig = config;
         this.el.html('');
-        var container = $('<div></div>').css('position', 'relative').css('overflow', 'hidden');
+        var container = $('<div></div>').css('position', 'relative').css('overflow', 'hidden').addClass('no-select');
         container.width(config.size * config.cols * 0.75 + config.size * 0.25);
         container.height(config.size * config.rows + config.size * 0.5);
         container.svg(function(svg) {
