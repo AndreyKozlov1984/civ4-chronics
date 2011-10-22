@@ -25,13 +25,24 @@ Civ.ImprovementDatabase = {
     "forest":{
         "image":"forest/mixed-summer-tile",
         "defence_bonus": 50
-    },
-    "farm":{
-        "image":"flat/farm-veg-spring",
-        "defence_bonus": 0
     }
 };
 Civ.UnitDatabase = {
-
-
+    "pikeman":{
+        "image":"pikeman"
+    },
+    "archer":{
+        "image":"bowman"
+    },
+    "maceman":{
+        "image":"heavyinfantry"
+    }
+};
+Civ.SideDatabase = {
+    "0": {
+        backgroundColor:'blue'
+    },
+    "1": {
+        backgroundColor:'black'
+    }
 };

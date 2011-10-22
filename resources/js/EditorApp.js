@@ -24,6 +24,7 @@ $(function(){
         loadMap(mapData);
     };
     sidePanel.onModeChosed = function(tileType){
-        mapEditor.activeTile = tileType;
+        mapEditor.selectionMode = tileType;
     };
+    sidePanel.setMode({type:'tile',key:'ocean',value:'ocean'});
 });

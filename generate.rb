@@ -2,7 +2,7 @@ require 'rubygems'
 require 'json'
 tiles = ['hills','ocean','coast','plain','grass']
 types = ['pikeman','archer','maceman']
-improvements = [nil,'forest','farm']
+improvements = [nil,'forest']
 sides = (0..1).to_a
 rows = 10
 columns = 20

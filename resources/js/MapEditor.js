@@ -2,7 +2,7 @@ window.Civ = window.Civ || {};
 Civ.MapEditor = function(config) {
     $.extend(this, config);
     this.battleManager = this.battleManager || new Civ.BattleManager({});
-    this.activeTile = 'ocean';
+    this.selectionMode = null;
 };
 $.extend(Civ.MapEditor.prototype, {
     k: function(x, y) {
@@ -49,9 +49,24 @@ $.extend(Civ.MapEditor.prototype, {
         });
         var me = this;
         var selectedCell = me.cells[me.k(tileInfo)];
-        selectedCell.tile = this.activeTile;
+        me.updateCell(selectedCell, me.selectionMode);
         me.clearSelection();
         me.selectCell(selectedCell);
+    },
+    updateCell: function(cell, mode) {
+        if (!mode) {
+            return;
+        }
+        var value = mode.key === 'remove' ? null : mode.value;
+        if (mode.type === 'tile') {
+            cell.tile = value;
+        }
+        if (mode.type === 'improvement') {
+            cell.improvement = value;
+        }
+        if (mode.type === 'unit'){
+            cell.unit = value;
+        }
     },
     render: function() {
         window.console && window.console.info('manager:rendering the map');

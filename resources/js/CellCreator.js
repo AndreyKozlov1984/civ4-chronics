@@ -23,17 +23,12 @@ $.extend(Civ.CellCreator.prototype, {
     },
     getUnitImage: function(unitType) {
         var prefix = "resources/images/wesnoth/units/human-loyalists/";
-        return prefix + {
-            'pikeman': "pikeman.png",
-            'archer': "bowman.png",
-            'maceman': "heavyinfantry.png"
-        }[unitType];
+        var image = Civ.UnitDatabase[unitType].image + '.png';
+        window.console.info(image);
+        return prefix + image;
     },
     getSideColor: function(side) {
-        return {
-            0: 'blue',
-            1: 'black'
-        }[side];
+        return Civ.SideDatabase[side].backgroundColor; 
     },
     getActionColor: function(action) {
         return {

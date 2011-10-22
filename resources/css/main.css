@@ -7,7 +7,7 @@ html,body {
   margin: 0;
   padding: 0;
 }
-.no-select * {
+body * {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -79,4 +79,18 @@ html,body {
 circle {
   stroke:blue;
   cursor: pointer;
+}
+.selected {
+  background: gray;
+}
+.side {
+  display: inline-block;
+  width: 72px;
+  height: 72px;
+  margin: 5px;
+  padding: 15px;
+}
+.side-inner {
+  width: 100%;
+  height: 100%;
 }
