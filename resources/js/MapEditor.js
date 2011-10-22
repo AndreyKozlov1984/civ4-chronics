@@ -68,6 +68,20 @@ $.extend(Civ.MapEditor.prototype, {
             cell.unit = value;
         }
     },
+    exportMap: function() {
+        window.console && window.console.info('manager:rendering the map');
+        var x, y;
+        var result = {
+            tiles:[]
+        };
+        for (y = 0; y < this.height; y++) {
+            result.tiles[y] = [];
+            for (x = 0; x < this.width; x++) {
+                result.tiles[y][x] = this.cells[this.k(x, y)];
+            }
+        }
+        return result;
+    },
     render: function() {
         window.console && window.console.info('manager:rendering the map');
         var x, y;

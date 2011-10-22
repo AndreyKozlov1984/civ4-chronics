@@ -52,6 +52,6 @@ $(function() {
         loadMap(mapEditor.render());
     };
     sidePanel.onSaveMap = function(){
-        $.post('/save',{map:currentMap});
+        $.post('/save',{map:JSON.stringify(mapEditor.exportMap())});
     };
 });

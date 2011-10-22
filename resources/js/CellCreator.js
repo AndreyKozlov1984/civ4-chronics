@@ -13,17 +13,17 @@ $.extend(Civ.CellCreator.prototype, {
     },
     getTileImage: function(tileType) {
         var prefix = "resources/images/wesnoth/terrain/";
-        var image = Civ.TileDatabase[tileType].image + '.png';
+        var image = Civ.TileDatabase[tileType].image ;
         return prefix + image;
     },
     getImprovementImage: function(improvementType) {
         var prefix = "resources/images/wesnoth/terrain/";
-        var image = Civ.ImprovementDatabase[improvementType].image + '.png';
+        var image = Civ.ImprovementDatabase[improvementType].image ;
         return prefix + image;
     },
     getUnitImage: function(unitType) {
         var prefix = "resources/images/wesnoth/units/human-loyalists/";
-        var image = Civ.UnitDatabase[unitType].image + '.png';
+        var image = Civ.UnitDatabase[unitType].image ;
         window.console.info(image);
         return prefix + image;
     },

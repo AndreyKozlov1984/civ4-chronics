@@ -1,41 +1,41 @@
 window.Civ = window.Civ || {};
 Civ.TileDatabase = {
     "ocean":{
-        "image":"water/ocean",
+        "image":"water/ocean.png",
         "defence_bonus": 0
     },
     "coast":{
-        "image":"water/coast",
+        "image":"water/coast.png",
         "defence_bonus": 10
     },
     "plain":{
-        "image":"flat/dirt",
+        "image":"flat/dirt.png",
         "defence_bonus": 0
     },
     "grass":{
-        "image":"flat/grass-r1",
+        "image":"flat/grass-r1.png",
         "defence_bonus": 0
     },
     "hills":{
-        "image":"hills-variation",
+        "image":"hills-variation.png",
         "defence_bonus": 50
     }
 };
 Civ.ImprovementDatabase = {
     "forest":{
-        "image":"forest/mixed-summer-tile",
+        "image":"forest/mixed-summer-tile.png",
         "defence_bonus": 50
     }
 };
 Civ.UnitDatabase = {
     "pikeman":{
-        "image":"pikeman"
+        "image":"pikeman.png"
     },
     "archer":{
-        "image":"bowman"
+        "image":"bowman.png"
     },
     "maceman":{
-        "image":"heavyinfantry"
+        "image":"heavyinfantry.png"
     }
 };
 Civ.SideDatabase = {
