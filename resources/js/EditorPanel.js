@@ -61,7 +61,15 @@ $.extend(Civ.EditorPanel.prototype, {
             });
         });
         //saving a map is here ...
-        var saveMap = $('<div/>').addClass('toolbar').html('<div>Controlling the map</div>').appendTo(me.el);
+        var mapToolbarDiv = $('<div/>').addClass('toolbar').html('<div>Controlling the map</div>').appendTo(me.el);
+        var newMapButton = $('<a href="javascript:;" class="minibutton"><span>New Map</span></a>').appendTo(mapToolbarDiv);
+        $(newMapButton).click(function(){
+            me.onNewMap(15,10);
+        });
+        var saveMapButton = $('<a href="javascript:;" class="minibutton"><span>Save</span></a>').appendTo(mapToolbarDiv);
+        $(saveMapButton).click(function(){
+            me.onSaveMap();
+        });
     },
     getMode: function(){
         return this.mode;

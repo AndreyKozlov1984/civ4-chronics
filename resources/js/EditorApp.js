@@ -1,4 +1,5 @@
-$(function(){
+$(function() {
+    var currentMap;
     var rightSide = $('<div></div>').addClass('right-region');
     var centerSide = $('<div></div>').addClass('center-region');
     $('body').append(rightSide).append(centerSide);
@@ -9,11 +10,14 @@ $(function(){
     var sidePanelPlaceHolder = $('<div></div>').appendTo(rightSide);
     var sidePanel = new Civ.EditorPanel(sidePanelPlaceHolder);
     var loadMap = function(mapData) {
-        map.setItems($.extend(mapData,{
+        map.setItems($.extend(mapData, {
             size: 72
         }));
     };
-    $.getJSON('map.json.js', {cacheBuster:Math.random()}, function(result) {
+    $.getJSON('map.json.js', {
+        cacheBuster: Math.random()
+    }, function(result) {
+        currentMap = result;
         mapEditor.loadMap(result.tiles);
         var mapData = mapEditor.render();
         loadMap(mapData);
@@ -23,8 +27,31 @@ $(function(){
         var mapData = mapEditor.render();
         loadMap(mapData);
     };
-    sidePanel.onModeChosed = function(tileType){
+    sidePanel.onModeChosed = function(tileType) {
         mapEditor.selectionMode = tileType;
     };
-    sidePanel.setMode({type:'tile',key:'ocean',value:'ocean'});
+    sidePanel.setMode({
+        type: 'tile',
+        key: 'ocean',
+        value: 'ocean'
+    });
+    sidePanel.onNewMap = function(sizeX, sizeY) {
+        var newMap = [];
+        for (var y = 0; y < sizeY; y++) {
+            newMap[y] = [];
+            for (var x = 0; x < sizeX; x++) {
+                newMap[y][x] = {
+                    tile: 'ocean'
+                };
+            }
+        }
+        currentMap = {
+            tiles: newMap
+        };
+        mapEditor.loadMap(newMap);
+        loadMap(mapEditor.render());
+    };
+    sidePanel.onSaveMap = function(){
+        $.post('/save',{map:currentMap});
+    };
 });
