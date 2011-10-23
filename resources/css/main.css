@@ -21,6 +21,21 @@ body * {
   top: 0;
   bottom: 0;
 }
+.bottom-region {
+  position: absolute;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.game-center-region {
+  position: absolute;
+  top: 0;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+
+}
 .center-region {
   position: absolute;
   left: 0;

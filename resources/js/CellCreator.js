@@ -4,7 +4,7 @@ Civ.CellCreator = function(config) {
 };
 $.extend(Civ.CellCreator.prototype, {
     makeCellContent: function(cellInfo) {
-        var layers = ['Tile','Improvement', 'UnitSideIdentifier', 'Unit', 'CellSelection', 'Highlight'];
+        var layers = ['Tile', 'Improvement', 'UnitSideIdentifier', 'Unit', 'RemainingActions', 'CellSelection', 'Highlight'];
         return layers.map(function(layer) {
             return this['create' + layer](cellInfo);
         }, this).filter(function(svgElement) {
@@ -13,22 +13,22 @@ $.extend(Civ.CellCreator.prototype, {
     },
     getTileImage: function(tileType) {
         var prefix = "resources/images/wesnoth/terrain/";
-        var image = Civ.TileDatabase[tileType].image ;
+        var image = Civ.TileDatabase[tileType].image;
         return prefix + image;
     },
     getImprovementImage: function(improvementType) {
         var prefix = "resources/images/wesnoth/terrain/";
-        var image = Civ.ImprovementDatabase[improvementType].image ;
+        var image = Civ.ImprovementDatabase[improvementType].image;
         return prefix + image;
     },
     getUnitImage: function(unitType) {
         var prefix = "resources/images/wesnoth/units/human-loyalists/";
-        var image = Civ.UnitDatabase[unitType].image ;
+        var image = Civ.UnitDatabase[unitType].image;
         window.console.info(image);
         return prefix + image;
     },
     getSideColor: function(side) {
-        return Civ.SideDatabase[side].backgroundColor; 
+        return Civ.SideDatabase[side].backgroundColor;
     },
     getActionColor: function(action) {
         return {
@@ -39,8 +39,24 @@ $.extend(Civ.CellCreator.prototype, {
     createTile: function(cellInfo) {
         return this.svg.image(0, 0, this.size, this.size, this.getTileImage(cellInfo.tile));
     },
-    createImprovement: function(cellInfo){
-        if (!cellInfo.improvement){
+    createRemainingActions: function(cellInfo) {
+        var unit = cellInfo.unit;
+        if (!unit) {
+            return null;
+        }
+        if (unit.side !== 0){
+            return null;
+        }
+        var color = unit.remaining === 0 ? 'darkred' : unit.remaining === unit.speed ? 'green' : 'yellow';
+        var x = 0.6 * this.size;
+        var y = 0.12 * this.size;
+        var radius = 0.08 * this.size;
+        return this.svg.circle(x, y, radius, {
+            fill: color
+        });
+    },
+    createImprovement: function(cellInfo) {
+        if (!cellInfo.improvement) {
             return null;
         }
         return this.svg.image(0, 0, this.size, this.size, this.getImprovementImage(cellInfo.improvement));

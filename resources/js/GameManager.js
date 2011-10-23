@@ -103,11 +103,12 @@ $.extend(Civ.GameManager.prototype, {
         });
         var me = this;
         var selectedCell = me.cells[me.k(tileInfo)];
+        var unit; 
         if (!me.selectedCell) {
             me.clearSelection();
             me.clearHighlight();
             me.selectCell(selectedCell);
-            var unit = me.selectedCell.unit;
+            unit = selectedCell.unit;
             if (unit) {
                 if (unit.side === me.playerSide) {
                     me.highlightedCells = me.getNearestCells(selectedCell).filter(function(neighbourCell) {
@@ -133,16 +134,14 @@ $.extend(Civ.GameManager.prototype, {
                     aboutTo: selectedCell.highlightAction
                 });
                 //do something
+                unit = me.selectedCell.unit;
                 this.unitMakeAction({
                     from: me.selectedCell,
                     to: selectedCell,
                     unit: me.selectedCell.unit,
                     action: selectedCell.highlightAction
                 });
-                //just select a new unit
-                me.clearSelection();
-                me.clearHighlight();
-                me.processCellClick(selectedCell);
+                this.checkUnitSelection(unit);
             } else {
                 me.clearSelection();
                 me.clearHighlight();
@@ -183,7 +182,6 @@ $.extend(Civ.GameManager.prototype, {
         if (config.action === 'move') {
             config.to.unit = config.from.unit;
             config.from.unit = null;
-            this.selectedCell = null;
             unit.remaining -= 1;
         }
         if (config.action === 'attack') {
@@ -194,16 +192,48 @@ $.extend(Civ.GameManager.prototype, {
                     if (battleResult === 'attacker') {
                         config.to.unit = config.from.unit;
                         config.from.unit = null;
-                        this.selectedCell = null;
                         unit.remaining = 0;
                     } else {
                         config.from.unit = null;
-                        this.selectedCell = null;
                     }
                 },
                 scope: this
             });
         }
+    },
+    checkUnitSelection: function(unit) {
+        var me = this;
+        var currentCell = null;
+        //if we already have selected unit then we should check if it still has
+        //some action points
+        if (unit){
+            $.each(me.cells,function(key,cell){
+                if (cell.unit === unit){
+                    currentCell = cell;
+                }
+            });
+        }
+        if (currentCell) {
+            if (unit.remaining > 0) {
+                me.selectedCell = null;
+                me.processCellClick(currentCell);
+                return;
+            }
+        }
+        // that means we need to find first unit which have remaining actions
+        $.each(me.cells, function(key,cell){
+            if (cell.unit && cell.unit.side === me.playerSide && cell.unit.remaining > 0){
+                currentCell = cell;
+            }
+        });
+        if (currentCell) {
+                me.selectedCell = null;
+                me.processCellClick(currentCell);
+                return;
+        }
+        //else we have nothing to do ...
+        me.clearHighlight();
+        me.clearSelection();
     },
     render: function() {
         window.console && window.console.info('manager:rendering the map');

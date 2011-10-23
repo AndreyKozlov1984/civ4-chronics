@@ -17,6 +17,15 @@ a.minibutton {
   -moz-border-radius: 3px;
   background: #eeeeee;
 }
+a.minibutton.endturn {
+  height: 44px;
+  font-size: 16px;
+  vertical-align:middle;
+  float: right;
+  margin: 3px;
+  padding-top: 12px;
+  border-radius: 10px;
+}
 
 a.minibutton:hover {
   background-color:lightblue;
@@ -24,8 +33,8 @@ a.minibutton:hover {
 
 a.minibutton>span {
   display:block;
-  height:23px;
+  height:100%;
   padding:0 10px 0 8px;
-  line-height:23px;
+  line-height:100%;
 }
 

@@ -6,7 +6,8 @@ $.extend(Civ.BattleManager.prototype,{
     unitPowerMap: {
         'pikeman': 4,
         'archer': 2,
-        'maceman': 6
+        'maceman': 6,
+        'cavalier': 4
     },
     simulateAttack: function(parameters){
         var attackerPower = this.getAttackerPower(parameters.from.unit);

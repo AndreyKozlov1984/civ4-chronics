@@ -13,17 +13,17 @@ Civ.TileDatabase = {
     "plain":{
         "image":"flat/dirt.png",
         "defence_bonus": 0,
-        "accessible_via":["melee","archer"]
+        "accessible_via":["melee","archer","cavarly"]
     },
     "grass":{
         "image":"flat/grass-r1.png",
         "defence_bonus": 0,
-        "accessible_via":["melee","archer"]
+        "accessible_via":["melee","archer","cavarly"]
     },
     "hills":{
         "image":"hills-variation.png",
         "defence_bonus": 50,
-        "accessible_via":["melee","archer"]
+        "accessible_via":["melee","archer","cavarly"]
     }
 };
 Civ.ImprovementDatabase = {
@@ -47,6 +47,11 @@ Civ.UnitDatabase = {
         "image":"heavyinfantry.png",
         "type":"melee",
         "speed": 1
+    },
+    "horseman":{
+        "image":"cavalier.png",
+        "type":"cavarly",
+        "speed": 2
     }
 };
 Civ.SideDatabase = {
