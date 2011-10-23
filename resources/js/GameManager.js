@@ -82,7 +82,19 @@ $.extend(Civ.GameManager.prototype, {
                     x: x,
                     y: y
                 };
+                if (cell.unit) {
+                    cell.unit.speed = Civ.UnitDatabase[cell.unit.type].speed;
+                    cell.unit.remaining = cell.unit.speed;
+                }
             });
+        });
+    },
+    doNextTurn: function() {
+        var me = this;
+        $.each(me.cells, function(key, cell) {
+            if (cell.unit) {
+                cell.unit.remaining = cell.unit.speed;
+            }
         });
     },
     processCellClick: function(tileInfo) {
@@ -139,35 +151,40 @@ $.extend(Civ.GameManager.prototype, {
         }
     },
     unitCanDoAnyAction: function(config) {
-        var cellUnit = config.to.unit;
-        if (cellUnit && config.unit.side === cellUnit.side) {
-            return false; //can not attack ourselves and can not stack units
-        }
-        if (cellUnit && config.unit.side !== cellUnit.side) {
-            return true; //can attack enemy
-        }
-        if (!cellUnit) {
-            return true; //can always move
-        }
+        return !!this.unitGetCellAction(config);
     },
     unitGetCellAction: function(config) {
         var cellUnit = config.to.unit;
-        if (cellUnit && config.unit.side === cellUnit.side) {
-            return null; //can not attack ourselves and can not stack units
-        }
-        if (cellUnit && config.unit.side !== cellUnit.side) {
+        if (cellUnit && this.unitCanMove(config) && config.unit.side !== cellUnit.side) {
             return 'attack'; //can attack enemy
         }
-        if (!cellUnit) {
+        if (!cellUnit && this.unitCanMove(config)) {
             return 'move'; //can always move
         }
+        return null;
+    },
+    unitCanMove: function(config) {
+        var unit = config.from.unit;
+        var tileInfo = Civ.TileDatabase[config.to.tile];
+        var unitInfo = Civ.UnitDatabase[config.from.unit.type];
+        //unit should have at least 1 point
+        if (unit.remaining === 0) {
+            return false;
+        }
+        //tile should be accessible
+        if (tileInfo.accessible_via.indexOf(unitInfo.type) === -1) {
+            return false;
+        }
+        return true;
     },
     unitMakeAction: function(config) {
         var cellUnit = config.to.unit;
+        var unit = config.from.unit;
         if (config.action === 'move') {
             config.to.unit = config.from.unit;
             config.from.unit = null;
             this.selectedCell = null;
+            unit.remaining -= 1;
         }
         if (config.action === 'attack') {
             this.battleManager.simulateAttack({
@@ -178,6 +195,7 @@ $.extend(Civ.GameManager.prototype, {
                         config.to.unit = config.from.unit;
                         config.from.unit = null;
                         this.selectedCell = null;
+                        unit.remaining = 0;
                     } else {
                         config.from.unit = null;
                         this.selectedCell = null;

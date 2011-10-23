@@ -2,23 +2,28 @@ window.Civ = window.Civ || {};
 Civ.TileDatabase = {
     "ocean":{
         "image":"water/ocean.png",
-        "defence_bonus": 0
+        "defence_bonus": 0,
+        "accessible_via":["ship"]
     },
     "coast":{
         "image":"water/coast.png",
-        "defence_bonus": 10
+        "defence_bonus": 10,
+        "accessible_via":["ship"]
     },
     "plain":{
         "image":"flat/dirt.png",
-        "defence_bonus": 0
+        "defence_bonus": 0,
+        "accessible_via":["melee","archer"]
     },
     "grass":{
         "image":"flat/grass-r1.png",
-        "defence_bonus": 0
+        "defence_bonus": 0,
+        "accessible_via":["melee","archer"]
     },
     "hills":{
         "image":"hills-variation.png",
-        "defence_bonus": 50
+        "defence_bonus": 50,
+        "accessible_via":["melee","archer"]
     }
 };
 Civ.ImprovementDatabase = {
@@ -29,13 +34,19 @@ Civ.ImprovementDatabase = {
 };
 Civ.UnitDatabase = {
     "pikeman":{
-        "image":"pikeman.png"
+        "image":"pikeman.png",
+        "type":"melee",
+        "speed": 1
     },
     "archer":{
-        "image":"bowman.png"
+        "image":"bowman.png",
+        "type":"archer",
+        "speed": 1
     },
     "maceman":{
-        "image":"heavyinfantry.png"
+        "image":"heavyinfantry.png",
+        "type":"melee",
+        "speed": 1
     }
 };
 Civ.SideDatabase = {
