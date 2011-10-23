@@ -12,6 +12,7 @@ $(function() {
         map.setItems($.extend(mapData, {
             size: 72
         }));
+        sidePanel.setItems(mapData);
     };
     $.getJSON('map.json.js', {
         cacheBuster: Math.random()

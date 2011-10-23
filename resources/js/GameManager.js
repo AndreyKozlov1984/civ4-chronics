@@ -96,6 +96,7 @@ $.extend(Civ.GameManager.prototype, {
                 cell.unit.remaining = cell.unit.speed;
             }
         });
+        this.checkUnitSelection();
     },
     processCellClick: function(tileInfo) {
         window.console && window.console.info({
@@ -185,10 +186,26 @@ $.extend(Civ.GameManager.prototype, {
             unit.remaining -= 1;
         }
         if (config.action === 'attack') {
+            var sameSide = function(unit){
+                return function(cell){
+                    return cell.unit && cell.unit.side === unit.side;
+                };
+            };
+            var differentSide = function(unit){
+                return function(cell){
+                    return cell.unit && cell.unit.side !== unit.side;
+                };
+            };
             this.battleManager.simulateAttack({
                 from: config.from,
                 to: config.to,
+                fromFriends: this.getNearestCells(config.from).filter(sameSide(config.from.unit)),
+                fromFoes: this.getNearestCells(config.from).filter(differentSide(config.from.unit)),
+                toFriends: this.getNearestCells(config.to).filter(sameSide(config.to.unit)),
+                toFoes: this.getNearestCells(config.to).filter(differentSide(config.to.unit)),
                 onComplete: function(battleResult) {
+                    var attacker = config.from.unit;
+                    var defender = config.to.unit;
                     if (battleResult === 'attacker') {
                         config.to.unit = config.from.unit;
                         config.from.unit = null;
@@ -196,10 +213,26 @@ $.extend(Civ.GameManager.prototype, {
                     } else {
                         config.from.unit = null;
                     }
+                    Civ.broadcast({
+                        type:'battle-finished',
+                        attacker: attacker,
+                        defender: defender,
+                        result: battleResult
+                    });
                 },
                 scope: this
             });
         }
+    },
+    getAvailableUnitCell: function(){
+        var me = this;
+        var currentCell = null;
+        $.each(me.cells, function(key,cell){
+            if (cell.unit && cell.unit.side === me.playerSide && cell.unit.remaining > 0){
+                currentCell = cell;
+            }
+        });
+        return currentCell;
     },
     checkUnitSelection: function(unit) {
         var me = this;
@@ -221,11 +254,7 @@ $.extend(Civ.GameManager.prototype, {
             }
         }
         // that means we need to find first unit which have remaining actions
-        $.each(me.cells, function(key,cell){
-            if (cell.unit && cell.unit.side === me.playerSide && cell.unit.remaining > 0){
-                currentCell = cell;
-            }
-        });
+        currentCell = me.getAvailableUnitCell();
         if (currentCell) {
                 me.selectedCell = null;
                 me.processCellClick(currentCell);
@@ -241,7 +270,8 @@ $.extend(Civ.GameManager.prototype, {
         var result = {
             cols: this.width,
             rows: this.height,
-            map: []
+            map: [],
+            endOfTurn: !this.getAvailableUnitCell()
         };
         for (y = 0; y < this.height; y++) {
             result.map[y] = [];

@@ -26,6 +26,9 @@ a.minibutton.endturn {
   padding-top: 12px;
   border-radius: 10px;
 }
+a.minibutton.endturn.no-moves {
+  border-color: #a00;
+}
 
 a.minibutton:hover {
   background-color:lightblue;
