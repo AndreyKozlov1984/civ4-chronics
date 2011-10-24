@@ -24,7 +24,6 @@ $.extend(Civ.CellCreator.prototype, {
     getUnitImage: function(unitType) {
         var prefix = "resources/images/wesnoth/units/human-loyalists/";
         var image = Civ.UnitDatabase[unitType].image;
-        window.console.info(image);
         return prefix + image;
     },
     getSideColor: function(side) {
