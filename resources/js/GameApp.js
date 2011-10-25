@@ -14,7 +14,7 @@ $(function() {
         }));
         sidePanel.setItems(mapData);
     };
-    $.getJSON('map.json.js', {
+    $.getJSON('load', {
         cacheBuster: Math.random()
     }, function(result) {
         gameManager.loadMap(result.tiles);

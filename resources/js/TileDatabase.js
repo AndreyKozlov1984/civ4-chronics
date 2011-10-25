@@ -33,25 +33,35 @@ Civ.ImprovementDatabase = {
     }
 };
 Civ.UnitDatabase = {
-    "pikeman":{
-        "image":"pikeman.png",
+    "peasant":{
+        "image":"human-peasants/peasant.png",
         "type":"melee",
-        "speed": 1
+        "speed": 1,
+        "power": 1
+    },
+    "pikeman":{
+        "image":"human-loyalists/pikeman.png",
+        "type":"melee",
+        "speed": 1,
+        "power": 4
     },
     "archer":{
-        "image":"bowman.png",
+        "image":"human-loyalists/bowman.png",
         "type":"archer",
-        "speed": 1
+        "speed": 1,
+        "power": 2
     },
     "maceman":{
-        "image":"heavyinfantry.png",
+        "image":"human-loyalists/heavyinfantry.png",
         "type":"melee",
-        "speed": 1
+        "speed": 1,
+        "power": 6
     },
     "horseman":{
-        "image":"cavalier.png",
+        "image":"human-loyalists/cavalier.png",
         "type":"cavarly",
-        "speed": 2
+        "speed": 2,
+        "power": 4
     }
 };
 Civ.SideDatabase = {

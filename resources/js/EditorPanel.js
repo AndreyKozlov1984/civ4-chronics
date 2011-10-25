@@ -21,7 +21,9 @@ $.extend(Civ.EditorPanel.prototype, {
         });
         var improvementsDiv = $('<div class="improvements"></div>').html('<div>Choose improvement: </div>').appendTo(me.el);
         $.each($.extend({
-            "remove":{}
+            "remove":{
+                "image":"../misc/red-x.png"
+            }
         },Civ.ImprovementDatabase),function(key,improvement){
             $('<img></img>').addClass('improvement').addClass(key).attr('src', "resources/images/wesnoth/terrain/" + improvement.image).appendTo(improvementsDiv).click(function(){
                 me.setMode({
@@ -33,9 +35,11 @@ $.extend(Civ.EditorPanel.prototype, {
         });
         var unitsDiv = $('<div class="units"></div>').html('<div>Choose unit:</div>').appendTo(me.el);
         $.each($.extend({
-            "remove":{}
+            "remove":{
+                "image":"../misc/red-x.png"
+            }
         },Civ.UnitDatabase),function(key,unit){
-            $('<img></img>').addClass('unit').addClass(key).attr('src', "resources/images/wesnoth/units/human-loyalists/" + unit.image).appendTo(unitsDiv).click(function(){
+            $('<img></img>').addClass('unit').addClass(key).attr('src', "resources/images/wesnoth/units/" + unit.image).appendTo(unitsDiv).click(function(){
                 me.setMode({
                     type: 'unit',
                     key: key,

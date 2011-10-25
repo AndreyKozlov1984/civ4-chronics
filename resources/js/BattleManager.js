@@ -3,12 +3,6 @@ Civ.BattleManager = function(config) {
     $.extend(this, config);
 };
 $.extend(Civ.BattleManager.prototype, {
-    unitPowerMap: {
-        'pikeman': 4,
-        'archer': 2,
-        'maceman': 6,
-        'horseman': 4
-    },
     simulateAttack: function(parameters) {
         var attackerPower = this.getAttackerPower(parameters);
         var defenderPower = this.getDefenderPower(parameters);
@@ -17,7 +11,8 @@ $.extend(Civ.BattleManager.prototype, {
     },
     getAttackerPower: function(parameters) {
         var attackerCell = parameters.from;
-        var basePower = this.unitPowerMap[parameters.from.unit.type];
+        var unitInfo = Civ.UnitDatabase[attackerCell.unit.type];
+        var basePower = unitInfo.power;
         var modifiers = [];
         modifiers.push(this.addHorseAttackBonus(parameters.from.unit,parameters.to.unit));
         modifiers.push(this.addFriendlyUnitsModifier(parameters.fromFriends));
@@ -30,7 +25,8 @@ $.extend(Civ.BattleManager.prototype, {
     },
     getDefenderPower: function(parameters) {
         var defenderCell = parameters.to;
-        var basePower = this.unitPowerMap[defenderCell.unit.type];
+        var unitInfo = Civ.UnitDatabase[defenderCell.unit.type];
+        var basePower = unitInfo.power;
         var modifiers = [];
         modifiers.push(this.addTerrainTypeModifier(defenderCell));
         modifiers.push(this.addImprovementModifier(defenderCell));

@@ -15,7 +15,7 @@ $(function() {
             size: 72
         }));
     };
-    $.getJSON('map.json.js', {
+    $.getJSON('load', {
         cacheBuster: Math.random()
     }, function(result) {
         currentMap = result;
@@ -53,6 +53,6 @@ $(function() {
         loadMap(mapEditor.render());
     };
     sidePanel.onSaveMap = function(){
-        $.post('/save',{map:JSON.stringify(mapEditor.exportMap())});
+        $.post('save',{map:JSON.stringify(mapEditor.exportMap())});
     };
 });

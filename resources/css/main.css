@@ -17,7 +17,9 @@ body {
   margin: 10px auto;
 }
 body.editor {
-  max-width: 1300px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 1100px;
 }
 body * {
   -webkit-user-select: none;
@@ -28,7 +30,7 @@ body * {
 }
 .right-region {
   position: absolute;
-  width: 300px;
+  left: 900px;
   right: 0;
   top: 0;
   bottom: 0;
@@ -47,15 +49,13 @@ body * {
   bottom: 50px;
   left: 0;
   right: 0;
-
 }
 .center-region {
   position: absolute;
   left: 0;
-  right: 300px;
+  width: 890px;
   top: 0;
   bottom: 0;
-
 }
 .map-container {
   background: url('../images/concrete_wall.png');
@@ -115,6 +115,10 @@ circle {
 .selected {
   background: gray;
 }
+.tiles img, .units img, .improvements img {
+  width: 72px;
+  height: 72px;
+}
 .side {
   display: inline-block;
   width: 72px;
@@ -127,5 +131,5 @@ circle {
   height: 100%;
 }
 .notification {
-  padding: 5px;
+  padding: 5px 5px 5px 50px;
 }

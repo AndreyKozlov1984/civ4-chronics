@@ -22,7 +22,7 @@ $.extend(Civ.CellCreator.prototype, {
         return prefix + image;
     },
     getUnitImage: function(unitType) {
-        var prefix = "resources/images/wesnoth/units/human-loyalists/";
+        var prefix = "resources/images/wesnoth/units/";
         var image = Civ.UnitDatabase[unitType].image;
         return prefix + image;
     },
