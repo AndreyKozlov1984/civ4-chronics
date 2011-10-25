@@ -1,4 +1,5 @@
 $(function() {
+    $('body').addClass('editor');
     var currentMap;
     var rightSide = $('<div></div>').addClass('right-region');
     var centerSide = $('<div></div>').addClass('center-region');

@@ -45,7 +45,7 @@ $.extend(Civ.Map.prototype, {
         if (!canUseExistingMarkup) {
             this.tileCache = {};
             this.el.html('');
-            var container = $('<div></div>').css('position', 'relative').css('overflow', 'hidden').addClass('no-select');
+            var container = $('<div></div>').css('position', 'relative').css('overflow', 'hidden').addClass('no-select').addClass('map-inner');
             this.container = container;
             container.width(config.size * config.cols * 0.75 + config.size * 0.25);
             container.height(config.size * config.rows + config.size * 0.5);

@@ -24,6 +24,7 @@ a.minibutton.endturn {
   float: right;
   margin: 3px;
   padding-top: 12px;
+  margin-right: 50px;
   border-radius: 10px;
 }
 a.minibutton.endturn.no-moves {

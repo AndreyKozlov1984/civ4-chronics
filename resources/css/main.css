@@ -7,6 +7,18 @@ html,body {
   margin: 0;
   padding: 0;
 }
+html {
+  background: url('../images/felt.png');
+}
+body {
+  max-width: 900px;
+  max-height: 900px;
+  position:relative;
+  margin: 10px auto;
+}
+body.editor {
+  max-width: 1300px;
+}
 body * {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -20,9 +32,9 @@ body * {
   right: 0;
   top: 0;
   bottom: 0;
+  padding: 10px;
 }
 .bottom-region {
-  background: url('../images/felt.png');
   position: absolute;
   height: 50px;
   bottom: 0;
@@ -51,6 +63,11 @@ body * {
   height: 100%;
   position: relative;
   overflow: auto;
+  border-radius:50px;
+  -moz-border-radius:50px;
+}
+.map-inner {
+  margin: 45px auto;
 }
 
 .hex-outer {
