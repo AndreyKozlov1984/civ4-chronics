@@ -15,7 +15,8 @@ $(function() {
             size: 72
         }));
     };
-    $.getJSON('load', {
+    var mapUrl = unescape(window.location.search.substring(1)) || 'default';
+    $.getJSON('load/' + mapUrl, {
         cacheBuster: Math.random()
     }, function(result) {
         currentMap = result;
@@ -52,7 +53,9 @@ $(function() {
         mapEditor.loadMap(newMap);
         loadMap(mapEditor.render());
     };
-    sidePanel.onSaveMap = function(){
-        $.post('save',{map:JSON.stringify(mapEditor.exportMap())});
+    sidePanel.onSaveMap = function() {
+        $.post('save/' + mapUrl, {
+            map: JSON.stringify(mapEditor.exportMap())
+        });
     };
 });

@@ -11,16 +11,16 @@ class Map < ActiveRecord::Base
 end
 module MapRepo
     extend self
-    def get_map
-        map = Map.find_by_name 'TheOne'
+    def get_map(name)
+        map = Map.find_by_name name
         if !map then
-            map = Map.create :name => 'TheOne', :value=> File.read('map.json.js')
+            map = Map.create :name => name, :value=> File.read('map.json.js')
         end
         map.value
     end
-    def save_map(value)
-        map = Map.find_by_name 'TheOne'
-        map = Map.create :name => 'TheOne' unless map
+    def save_map(name,value)
+        map = Map.find_by_name name
+        map = Map.create :name => name unless map
         map.value = value
         map.save!
     end
@@ -49,17 +49,28 @@ configure :production do
        end
     end	
 end
-configure do
-    # do a quick pseudo migration.  This should only get executed on the first run
-end
 
 class CivServer < Sinatra::Base
     set :public, "."
-    post '/save' do 
-        MapRepo.save_map params[:map]
+    helpers do
+        def map_file
+            return "resources/maps/#{params[:name]}.js"
+        end
     end
-    get '/load' do
-        MapRepo.get_map
+    post '/save/:name' do |name|
+        puts "saving #{name}"
+        if development? && File.exists?(map_file)
+            puts "saving to file"
+            File.open(map_file,"w") do |file|
+                file.puts params[:map]
+            end
+        else
+            puts "saving to db"
+            MapRepo.save_map name,params[:map]
+        end
+    end
+    get '/load/:name' do |name|
+        File.read(map_file) rescue MapRepo.get_map(name) 
     end
     get '/' do
         File.read('index.html')

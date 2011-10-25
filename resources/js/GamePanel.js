@@ -13,6 +13,10 @@ $.extend(Civ.GamePanel.prototype, {
             me.onEndTurn();
         });
         me.notificationDiv = $('<div/>').addClass('notification').appendTo(me.el);
+        Civ.broadcast({
+            type:'fill-game-panel',
+            el: me.el
+        });
     },
     setItems: function(items){
         $(this.endTurnButton).removeClass('no-moves');

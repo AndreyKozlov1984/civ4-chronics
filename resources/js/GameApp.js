@@ -14,7 +14,12 @@ $(function() {
         }));
         sidePanel.setItems(mapData);
     };
-    $.getJSON('load', {
+    var mapName = (unescape(window.location.search.substring(1)) || 'default');
+    var mapLoadUrl = 'load/' + mapName;
+    if (window.location.hostname.match(/github/)) {
+        mapLoadUrl = 'resources/maps' + mapName + '.js';
+    }
+    $.getJSON(mapLoadUrl, {
         cacheBuster: Math.random()
     }, function(result) {
         gameManager.loadMap(result.tiles);
@@ -26,7 +31,7 @@ $(function() {
         var mapData = gameManager.render();
         loadMap(mapData);
     };
-    sidePanel.onEndTurn = function(){
+    sidePanel.onEndTurn = function() {
         gameManager.doNextTurn();
         var mapData = gameManager.render();
         loadMap(mapData);
