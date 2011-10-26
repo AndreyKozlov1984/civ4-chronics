@@ -1,5 +1,0 @@
-jsbeautify_options = {
-	indent_size: 4,
-	indent_char: " ",
-	preserve_newlines: false
-};
