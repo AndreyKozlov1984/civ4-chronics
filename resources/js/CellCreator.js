@@ -32,7 +32,7 @@ $.extend(Civ.CellCreator.prototype, {
     getActionColor: function(action) {
         return {
             attack: 'red',
-            move: 'green'
+            move: 'rgba(255,255,255,0.5)'
         }[action];
     },
     createTile: function(cellInfo) {

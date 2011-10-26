@@ -89,13 +89,15 @@ $.extend(Civ.Map.prototype, {
     updateTile: function(svg, cell) {
         var key = cell.x + ':' + cell.y;
         var previousValue = this.tileCache[key];
+        var previousCellDom;
         if (previousValue) {
             if (JSON.stringify(cell) === this.tileCache[key].cell) {
                 return;
             }
-            $(previousValue.el).remove();
+            previousCellDom = previousValue.el;
         }
         var el = this.createTile(svg, cell);
+        $(previousCellDom).remove();
         this.tileCache[key] = {
             cell: JSON.stringify(cell),
             el: el
