@@ -1,0 +1,2 @@
+msgid "Header"
+msgstr "Ru: Header"
